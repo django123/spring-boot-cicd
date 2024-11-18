@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: spring-boot-cicd
+
+
+server:
+    port: 8085
