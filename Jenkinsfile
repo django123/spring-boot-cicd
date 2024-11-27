@@ -98,6 +98,8 @@ pipeline {
                         excuteCommand("docker push ${imageTagTest}")
                         excuteCommand("docker push ${imageNameTest}")
                     }
+                }
+            }
         }
   }
 
