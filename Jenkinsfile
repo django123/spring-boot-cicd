@@ -1,29 +1,23 @@
+def executeCommand(command){
+  if (isUnix()) {
+          sh cmd
+      } else {
+          bat cmd
+      }
+}
+
+
 pipeline {
     agent any
     stages {
         stage('Verify Branch') {
             steps {
-                 script {
-                   if(isUnix()){
-                     sh 'echo $GIT_BRANCH'
-                   }
-                   else{
-                      bat "echo %GIT_BRANCH%"
-                   }
-                 }
-
+                 executeCommand('echo GIT_BRANCH')
             }
         }
         stage('Docker Build') {
             steps {
-              script{
-                if(isUnix()){
-                  sh 'docker build -t spring-boot-docker .'
-                }
-                else{
-                  bat "docker build -t spring-boot-docker ."
-                }
-              }
+               executeCommand('docker build -t spring-boot-docker .')
             }
         }
 
