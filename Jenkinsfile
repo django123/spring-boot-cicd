@@ -82,21 +82,12 @@ pipeline {
                     // On utilise le nom défini dans l'environnement
                     def imageName = "${DOCKER_IMAGE_NAME}"
 
-                    // On utilise le nom défini dans l'environnement
-                    def imageNameTest = "${TEST_IMAGE_NAME}"
 
-                    // On utilise le tag défini dans l'environnement
-                    def imageTagTest = "${TEST_IMAGE_NAME}:${BUILD_TAG}"
-
-                    // On utilise le nom défini dans l'environnement
-                    def imageNameTest = "${TEST_IMAGE_NAME}"
 
                     withCredentials([usernamePassword(credentialsId: registryCredentials, passwordVariable: 'django123', usernameVariable: 'django91')]) {
                         // On push l'image sur le registry
                         excuteCommand("docker login -u ${username} -p ${password} ${registry}")
                         excuteCommand("docker push ${imageTag}")
-                        excuteCommand("docker push ${imageTagTest}")
-                        excuteCommand("docker push ${imageNameTest}")
                     }
                 }
             }
