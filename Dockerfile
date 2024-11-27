@@ -29,7 +29,7 @@ FROM eclipse-temurin:17-jdk-alpine
 
 COPY --from=build /opt/app/target/*.jar spring-boot-docker.jar
 
-ENV PORT 8081
+ENV PORT 8085
 EXPOSE $PORT
 
 ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","spring-boot-docker.jar"]
