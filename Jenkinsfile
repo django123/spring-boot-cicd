@@ -75,7 +75,7 @@ pipeline {
                             def dockerUsername = "django91"  // Remplacez par votre nom d'utilisateur Docker Hub
                             def dockerPassword = "django123"  // Remplacez par votre mot de passe Docker Hub ou token
                             def imageTag = "${DOCKER_IMAGE_NAME}:${BUILD_TAG}"
-                             excuteCommand(' echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin ${DOCKER_REGISTRY}')
+                             excuteCommand(' echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin')
 
 /*                         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                            excuteCommand(' echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin ${registry}')
