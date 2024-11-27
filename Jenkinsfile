@@ -90,9 +90,11 @@ pipeline {
                         excuteCommand("docker push ${imageTag}")
                     } */
 
-                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                                     excuteCommand('docker login -u django91 -p ${dockerhub}')
-                                     excuteCommand('docker login -u django91 -p ${dockerhub}')
+                        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                                excuteCommand('docker login -u django91 -p ${dockerhub}')
+
+                        }
+                        excuteCommand("docker push ${DOCKER_IMAGE_NAME}")
                 }
             }
         }
