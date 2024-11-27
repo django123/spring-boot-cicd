@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('Verify Branch') {
             steps {
-                echo  "$GIT_BRANCH"
+                  bat "echo %GIT_BRANCH%"
             }
         }
         stage('Docker Build') {
             steps {
-                sh(script: 'docker build -t spring-boot-docker .', returnStdout: true)
+                bat 'docker build -t spring-boot-docker .'
             }
         }
         stage('Docker Push') {
             steps {
-                sh 'docker push spring-boot-docker'
+                bat 'docker push spring-boot-docker'
             }
         }
     }
