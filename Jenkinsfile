@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                echo 'Building..'
+              script {
+                sh 'docker build -t spring-boot-cicd .'
+              }
             }
         }
         stage('Test') {

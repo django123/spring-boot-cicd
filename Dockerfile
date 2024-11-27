@@ -1,4 +1,12 @@
 FROM openjdk:17-alpine
-EXPOSE 8085
+
+
+RUN mvn clean install -DskipTests
+# Docker Build Stage
+FROM eclipse-temurin:17-jdk-alpine
 COPY target/spring-boot-docker.jar spring-boot-docker.jar
-ENTRYPOINT ["java","-jar","/spring-boot-docker.jar"]
+
+ENV PORT 8085
+EXPOSE $PORT
+
+ENTRYPOINT ["java","-jar","-Dserver.port=${PORT}","/spring-boot-docker.jar"]
