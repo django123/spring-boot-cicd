@@ -22,7 +22,7 @@ pipeline {
   environment {
     DOCKER_IMAGE_NAME = "spring-boot-docker"
     DOCKER_IMAGE_TAG = "latest"
-    DOCKER_REGISTRY = "https://hub.docker.com/"
+    DOCKER_REGISTRY = "docker.io"
     DOCKER_REGISTRY_CREDENTIALS = "docker-registry-credentials"
 
     // Utilisation de timestamps pour les tags d'image
