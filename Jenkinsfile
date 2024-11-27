@@ -1,18 +1,19 @@
-def excuteCommand(cmd) {
-  // Pour les commandes Docker, on normalise les slashes sur Windows
-  def normalizedCmd = cmd.replaceAll("\\\\", "/")
-
-  if (isUnix()) {
-    sh normalizedCmd
-  } else {
-  // Sur windows, certaines commandes doivent être adaptées
-    if(cmd.startsWith("docker ")) {
-      bat normalizedCmd
+def executeCommand(cmd) {
+    def normalizedCmd = cmd.replaceAll('\\\\', '/')
+    
+    if (isUnix()) {
+        // Détection de macOS
+        def isMac = sh(script: 'uname', returnStdout: true).trim() == 'Darwin'
+        if (isMac && cmd.startsWith('docker')) {
+            // Sur macOS, on utilise le chemin complet vers Docker
+            def macDockerCmd = "/Applications/Docker.app/Contents/Resources/bin/${normalizedCmd}"
+            sh macDockerCmd
+        } else {
+            sh normalizedCmd
+        }
     } else {
-    // Pour les autres, on exécute la commande normalement
-      bat "cmd /c ${normalizedCmd}"
+        bat normalizedCmd
     }
-  }
 }
 
 pipeline {
