@@ -9,7 +9,7 @@ pipeline {
         stage('Docker Build') {
             steps {
               script {
-                sh 'docker build -t spring-boot-cicd .'
+                sh 'docker build -t spring-boot-docker .'
               }
             }
         }
