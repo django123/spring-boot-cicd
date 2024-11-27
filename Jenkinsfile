@@ -74,7 +74,7 @@ pipeline {
                 script{
 
                         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                           excuteCommand('docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}')
+                           excuteCommand('echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin')
                         }
                         excuteCommand("docker push ${DOCKER_IMAGE_NAME}")
                 }
