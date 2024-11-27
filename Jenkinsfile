@@ -8,19 +8,12 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-              script {
-                sh 'docker build -t spring-boot-docker .'
-              }
+                sh(script: 'docker build -t spring-boot-docker .', returnStdout: true)
             }
         }
-        stage('Test') {
+        stage('Docker Push') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'docker push spring-boot-docker'
             }
         }
     }
