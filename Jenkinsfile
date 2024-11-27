@@ -72,23 +72,27 @@ pipeline {
         stage('Docker Push Image'){
             steps {
                 script{
-                    // On utilise le registry défini dans l'environnement
-                    def registry = "${DOCKER_REGISTRY}"
-                    def registryCredentials = "${DOCKER_REGISTRY_CREDENTIALS}"
+//                     // On utilise le registry défini dans l'environnement
+//                     def registry = "${DOCKER_REGISTRY}"
+//                     def registryCredentials = "${DOCKER_REGISTRY_CREDENTIALS}"
+//
+//                     // On utilise le tag défini dans l'environnement
+//                     def imageTag = "${DOCKER_IMAGE_NAME}:${BUILD_TAG}"
+//
+//                     // On utilise le nom défini dans l'environnement
+//                     def imageName = "${DOCKER_IMAGE_NAME}"
 
-                    // On utilise le tag défini dans l'environnement
-                    def imageTag = "${DOCKER_IMAGE_NAME}:${BUILD_TAG}"
-
-                    // On utilise le nom défini dans l'environnement
-                    def imageName = "${DOCKER_IMAGE_NAME}"
 
 
-
-                    withCredentials([usernamePassword(credentialsId: registryCredentials, passwordVariable: 'django123', usernameVariable: 'django91')]) {
+                   /*  withCredentials([usernamePassword(credentialsId: registryCredentials, passwordVariable: 'django123', usernameVariable: 'django91')]) {
                         // On push l'image sur le registry
                         excuteCommand("docker login -u ${username} -p ${password} ${registry}")
                         excuteCommand("docker push ${imageTag}")
-                    }
+                    } */
+
+                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                                     excuteCommand('docker login -u django91 -p ${dockerhub}')
+                                     excuteCommand('docker login -u django91 -p ${dockerhub}')
                 }
             }
         }
