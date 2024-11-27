@@ -1,9 +1,10 @@
 def executeCommand(cmd) {
     if (isUnix()) {
-        sh cmd
-    } else {
-        bat cmd
-    }
+           sh cmd // Exécution pour Linux/macOS
+       } else {
+           bat cmd.replace("${env.DOCKER_PASSWORD}", "%DOCKER_PASSWORD%")
+                      .replace("${env.DOCKER_USERNAME}", "%DOCKER_USERNAME%") // Exécution pour Windows
+       }
 }
 pipeline {
     agent any
