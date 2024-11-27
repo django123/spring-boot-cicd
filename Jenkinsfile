@@ -16,12 +16,14 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-               if(isUnix()){
-                   sh 'docker build -t spring-boot-docker .'
-               }
-               else{
+              script{
+                if(isUnix()){
+                  sh 'docker build -t spring-boot-docker .'
+                }
+                else{
                   bat "docker build -t spring-boot-docker ."
-               }
+                }
+              }
             }
         }
 
