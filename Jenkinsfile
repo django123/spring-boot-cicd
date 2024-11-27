@@ -7,6 +7,9 @@ def executeCommand(cmd) {
 }
 pipeline {
     agent any
+    environment {
+        DOCKER_IMAGE_NAME = 'spring-boot-docker'
+    }
     stages {
         stage('Verify Branch') {
             steps {
@@ -19,7 +22,7 @@ pipeline {
         stage('Docker Build') {
             steps {
               script{
-               executeCommand('docker build -t spring-boot-docker .')
+               executeCommand('docker build -t ${DOCKER_IMAGE_NAME} .')
               }
             }
         }
