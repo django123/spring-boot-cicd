@@ -23,7 +23,7 @@ pipeline {
         stage('Docker Build') {
             steps {
               script{
-               executeCommand('docker build -t ${DOCKER_IMAGE} .')
+               executeCommand('docker build -t spring-boot-docker .')
               }
             }
         }
