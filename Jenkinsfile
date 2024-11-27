@@ -22,7 +22,7 @@ pipeline {
   environment {
     DOCKER_IMAGE_NAME = "spring-boot-docker"
     DOCKER_IMAGE_TAG = "latest"
-    DOCKER_REGISTRY = "docker.io"
+    DOCKER_REGISTRY = "https://hub.docker.com/"
     DOCKER_REGISTRY_CREDENTIALS = "docker-registry-credentials"
 
     // Utilisation de timestamps pour les tags d'image
@@ -72,27 +72,9 @@ pipeline {
         stage('Docker Push Image'){
             steps {
                 script{
-//                     // On utilise le registry défini dans l'environnement
-//                     def registry = "${DOCKER_REGISTRY}"
-//                     def registryCredentials = "${DOCKER_REGISTRY_CREDENTIALS}"
-//
-//                     // On utilise le tag défini dans l'environnement
-//                     def imageTag = "${DOCKER_IMAGE_NAME}:${BUILD_TAG}"
-//
-//                     // On utilise le nom défini dans l'environnement
-//                     def imageName = "${DOCKER_IMAGE_NAME}"
 
-
-
-                   /*  withCredentials([usernamePassword(credentialsId: registryCredentials, passwordVariable: 'django123', usernameVariable: 'django91')]) {
-                        // On push l'image sur le registry
-                        excuteCommand("docker login -u ${username} -p ${password} ${registry}")
-                        excuteCommand("docker push ${imageTag}")
-                    } */
-
-                        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                                excuteCommand('docker login -u django91 -p ${dockerhub}')
-
+                        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                           excuteCommand('docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}')
                         }
                         excuteCommand("docker push ${DOCKER_IMAGE_NAME}")
                 }
