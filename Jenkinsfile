@@ -3,18 +3,27 @@ pipeline {
     stages {
         stage('Verify Branch') {
             steps {
-                  bat "echo %GIT_BRANCH%"
+                 script {
+                   if(isUnix()){
+                     sh 'echo $GIT_BRANCH'
+                   }
+                   else{
+                      bat "echo %GIT_BRANCH%"
+                   }
+                 }
+
             }
         }
         stage('Docker Build') {
             steps {
-                bat 'docker build -t spring-boot-docker .'
+               if(isUnix()){
+                   sh 'docker build -t spring-boot-docker .'
+               }
+               else{
+                  bat "docker build -t spring-boot-docker ."
+               }
             }
         }
-        stage('Docker Push') {
-            steps {
-                bat 'docker push spring-boot-docker'
-            }
-        }
+
     }
 }
